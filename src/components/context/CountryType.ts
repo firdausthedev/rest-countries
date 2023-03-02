@@ -3,6 +3,7 @@ import { loadTheme } from "./CountryActions";
 export interface ICountry {
   name: {
     official: string;
+    common?: string;
     nativeName: {
       [key: string]: {
         official: string;
@@ -32,6 +33,7 @@ export interface CountryState {
   searchKey: string;
   region: string;
   detail: ICountry | null;
+  loading: boolean;
 }
 
 export const initialCountry: ICountry[] = [
@@ -252,6 +254,7 @@ export const initialState: CountryState = {
   searchKey: "",
   region: "",
   detail: null,
+  loading: false,
 };
 
 export enum CountryActionType {
@@ -264,6 +267,11 @@ export enum CountryActionType {
   SEARCH_NAME_REGION,
   SET_DETAIL,
   SEARCH_CODE,
+  SET_LOADING,
+}
+
+export interface setLoading {
+  type: CountryActionType.SET_LOADING;
 }
 
 export interface searchCode {
@@ -322,4 +330,5 @@ export type CountryActionTypes =
   | setSearchKey
   | searchNameAndRegion
   | setDetail
-  | searchCode;
+  | searchCode
+  | setLoading;

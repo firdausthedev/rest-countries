@@ -13,6 +13,9 @@ const CountryItem = ({ country }: { country: ICountry }) => {
       className="flex flex-col shadow bg-white dark:bg-dark-blue dark:text-white rounded-lg overflow-hidden"
       state={country}
       onClick={() => {
+        dispatch({
+          type: CountryActionType.SET_LOADING,
+        });
         dispatch({ type: CountryActionType.SET_DETAIL, payload: country });
       }}>
       <img src={country.flags.png} alt="flag" className="h-44" />

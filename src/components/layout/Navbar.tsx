@@ -19,17 +19,17 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="p-4 shadow bg-white dark:bg-dark-blue">
-      <div className="container px-5 mx-auto flex justify-between">
-        <h1 className="font-bold text-xl dark:text-white">
+    <nav className="p-3 md:p-4 shadow bg-white dark:bg-dark-blue">
+      <div className="container md:px-5 mx-auto flex justify-between">
+        <h1 className="font-bold md:text-xl dark:text-white">
           Where in the world?
         </h1>
         <button
-          className="font-semibold flex justify-center items-center dark:text-white"
+          className="font-semibold flex justify-center items-center dark:text-white text-sm md:text-base"
           onClick={() => {
             handleTheme();
           }}>
-          <FaMoon className="mr-3 inline-flex" /> Dark Mode
+          <FaMoon className="mr-1 md:mr-3 inline-flex" /> Dark Mode
         </button>
       </div>
     </nav>

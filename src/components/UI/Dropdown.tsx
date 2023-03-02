@@ -6,12 +6,27 @@ import {
 import { useContext } from "react";
 import CountryContext from "../context/CountryContext";
 import { CountryActionType } from "../context/CountryType";
+import { FaTimes } from "react-icons/fa";
 
 const DropDown = () => {
   const [isShowDD, setIsShowDD] = useState(false);
   const { state, dispatch } = useContext(CountryContext);
 
+  const handleReset = () => {
+    dispatch({
+      type: CountryActionType.SET_LOADING,
+    });
+    dispatch({
+      type: CountryActionType.RESET_SEARCH,
+    });
+    setIsShowDD(false);
+  };
+
   const handleRegion = async (region: string) => {
+    dispatch({
+      type: CountryActionType.SET_LOADING,
+    });
+    setIsShowDD(false);
     if (state.searchKey == "") {
       const data = await searchByRegion(region);
       dispatch({
@@ -31,7 +46,6 @@ const DropDown = () => {
         },
       });
     }
-    setIsShowDD(false);
   };
 
   return (
@@ -65,65 +79,110 @@ const DropDown = () => {
         <ul
           className="py-2 text-sm text-black dark:text-white"
           aria-labelledby="dropdownDefaultButton">
-          <li>
+          <li
+            className={`flex w-full justify-between items-center px-4 py-2 hover:bg-very-dark-blue hover:text-white ${
+              state.region === "Africa" && "bg-very-dark-blue text-white"
+            }`}>
             <button
               type="button"
+              className="flex flex-1"
               onClick={() => {
                 handleRegion("Africa");
-              }}
-              className={`flex w-full  px-4 py-2 hover:bg-very-dark-blue hover:text-white ${
-                state.region === "Africa" && "bg-very-dark-blue text-white"
-              }`}>
+              }}>
               Africa
             </button>
+            {state.region === "Africa" && (
+              <FaTimes
+                className="inline text-red-500 z-20 cursor-pointer"
+                onClick={() => {
+                  handleReset();
+                }}
+              />
+            )}
           </li>
-          <li>
+          <li
+            className={`flex w-full justify-between items-center px-4 py-2 hover:bg-very-dark-blue hover:text-white ${
+              state.region === "Americas" && "bg-very-dark-blue text-white"
+            }`}>
             <button
               type="button"
+              className="flex flex-1"
               onClick={() => {
                 handleRegion("Americas");
-              }}
-              className={`flex w-full  px-4 py-2 hover:bg-very-dark-blue hover:text-white ${
-                state.region === "Americas" && "bg-very-dark-blue text-white"
-              }`}>
+              }}>
               America
             </button>
+            {state.region === "Americas" && (
+              <FaTimes
+                className="inline text-red-500 z-20 cursor-pointer"
+                onClick={() => {
+                  handleReset();
+                }}
+              />
+            )}
           </li>
-          <li>
+          <li
+            className={`flex w-full justify-between items-center px-4 py-2 hover:bg-very-dark-blue hover:text-white ${
+              state.region === "Asia" && "bg-very-dark-blue text-white"
+            }`}>
             <button
               type="button"
+              className="flex flex-1"
               onClick={() => {
                 handleRegion("Asia");
-              }}
-              className={`flex w-full  px-4 py-2 hover:bg-very-dark-blue hover:text-white ${
-                state.region === "Asia" && "bg-very-dark-blue text-white"
-              }`}>
+              }}>
               Asia
             </button>
+            {state.region === "Asia" && (
+              <FaTimes
+                className="inline text-red-500 z-20 cursor-pointer"
+                onClick={() => {
+                  handleReset();
+                }}
+              />
+            )}
           </li>
-          <li>
+          <li
+            className={`flex w-full justify-between items-center px-4 py-2 hover:bg-very-dark-blue hover:text-white ${
+              state.region === "Europe" && "bg-very-dark-blue text-white"
+            }`}>
             <button
               type="button"
+              className="flex flex-1"
               onClick={() => {
                 handleRegion("Europe");
-              }}
-              className={`flex w-full  px-4 py-2 hover:bg-very-dark-blue hover:text-white ${
-                state.region === "Europe" && "bg-very-dark-blue text-white"
-              }`}>
+              }}>
               Europe
             </button>
+            {state.region === "Europe" && (
+              <FaTimes
+                className="inline text-red-500 z-20 cursor-pointer"
+                onClick={() => {
+                  handleReset();
+                }}
+              />
+            )}
           </li>
-          <li>
+          <li
+            className={`flex w-full justify-between items-center px-4 py-2 hover:bg-very-dark-blue hover:text-white ${
+              state.region === "Oceania" && "bg-very-dark-blue text-white"
+            }`}>
             <button
               type="button"
+              className="flex flex-1"
               onClick={() => {
                 handleRegion("Oceania");
-              }}
-              className={`flex w-full  px-4 py-2 hover:bg-very-dark-blue hover:text-white ${
-                state.region === "Oceania" && "bg-very-dark-blue text-white"
-              }`}>
+              }}>
               Oceania
             </button>
+            {state.region === "Oceania" && (
+              <FaTimes
+                className="inline text-red-500 z-20 cursor-pointer"
+                onClick={() => {
+                  handleReset();
+                }}
+              />
+            )}
           </li>
         </ul>
       </div>

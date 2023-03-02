@@ -10,6 +10,11 @@ const countryReducer = (
   action: CountryActionTypes,
 ): CountryState => {
   switch (action.type) {
+    case CountryActionType.SET_LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
     case CountryActionType.SET_DARK_THEME:
       return {
         ...state,
@@ -20,11 +25,13 @@ const countryReducer = (
         ...state,
         region: action.payload.region,
         country: action.payload.country,
+        loading: false,
       };
     case CountryActionType.SEARCH_NAME:
       return {
         ...state,
         country: action.payload,
+        loading: false,
       };
     case CountryActionType.SET_SEARCH_KEY:
       return {
@@ -36,6 +43,7 @@ const countryReducer = (
         ...state,
         region: action.payload.region,
         country: action.payload.country,
+        loading: false,
       };
     case CountryActionType.RESET_SEARCH:
       return {
@@ -43,6 +51,7 @@ const countryReducer = (
         country: initialCountry,
         searchKey: "",
         region: "",
+        loading: false,
       };
     case CountryActionType.SET_LIGHT_THEME:
       return {
@@ -53,11 +62,13 @@ const countryReducer = (
       return {
         ...state,
         detail: action.payload,
+        loading: false,
       };
     case CountryActionType.SEARCH_CODE:
       return {
         ...state,
         detail: action.payload,
+        loading: false,
       };
     default:
       return state;

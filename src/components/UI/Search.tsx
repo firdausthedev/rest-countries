@@ -7,6 +7,10 @@ const Search = () => {
   const { state, dispatch } = useContext(CountryContext);
 
   const handleSearchInput = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: CountryActionType.SET_LOADING,
+    });
+
     if (e.target.value == "") {
       dispatch({
         type: CountryActionType.RESET_SEARCH,
@@ -60,6 +64,21 @@ const Search = () => {
         className="block w-full md:w-[30rem] p-4 pl-14 text-sm text-gray-500 dark:text-white rounded-lg bg-white dark:bg-dark-blue shadow font-semibold outline-none"
         placeholder="Search for country..."
       />
+      {state.searchKey && (
+        <button
+          onClick={() => {
+            dispatch({
+              type: CountryActionType.SET_LOADING,
+            });
+            dispatch({
+              type: CountryActionType.RESET_SEARCH,
+            });
+          }}
+          type="button"
+          className="p-4 text-sm text-white rounded-lg absolute right-2.5 top-2 px-4 py-2 bg-dark-blue dark:bg-very-dark-blue font-semibold outline-none">
+          Clear
+        </button>
+      )}
     </div>
   );
 };
