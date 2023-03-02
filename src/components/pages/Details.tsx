@@ -59,7 +59,8 @@ const Details = () => {
                   {state.detail?.region}
                 </p>
                 <p>
-                  <strong>Sub Region: </strong>ppp
+                  <strong>Sub Region: </strong>
+                  {state.detail?.subregion}
                 </p>
                 <p>
                   <strong>Capital: </strong>
