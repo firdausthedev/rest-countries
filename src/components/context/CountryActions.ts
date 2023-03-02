@@ -57,3 +57,12 @@ export const searchByNameAndRegion = async (
   if (data) return data.filter(country => country.region === region);
   return null;
 };
+
+export const searchByCode = async (code: string): Promise<ICountry | null> => {
+  const data = await fetch(`https://restcountries.com/v3.1/alpha/${code}`, {
+    method: "GET",
+  });
+  const response = await data.json();
+  if (response.status === 404) return null;
+  return response[0];
+};

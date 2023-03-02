@@ -54,6 +54,11 @@ const countryReducer = (
         ...state,
         detail: action.payload,
       };
+    case CountryActionType.SEARCH_CODE:
+      return {
+        ...state,
+        detail: action.payload,
+      };
     default:
       return state;
   }

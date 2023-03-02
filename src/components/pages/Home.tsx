@@ -17,7 +17,7 @@ const Home = () => {
         <DropDown />
       </div>
 
-      <div className="container mx-auto grid gap-5 md:grid-cols-2 md:gap-10 xl:grid-cols-4 xl:gap-14  mt-16 pb-20">
+      <div className="container mx-auto grid gap-8 md:grid-cols-2 md:gap-10 xl:grid-cols-4 xl:gap-14 mt-10 md:mt-16 pb-20">
         {state.country ? (
           state.country.length > 1 ? (
             state.country.map(country => {

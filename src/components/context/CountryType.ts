@@ -263,6 +263,12 @@ export enum CountryActionType {
   RESET_SEARCH,
   SEARCH_NAME_REGION,
   SET_DETAIL,
+  SEARCH_CODE,
+}
+
+export interface searchCode {
+  type: CountryActionType.SEARCH_CODE;
+  payload: ICountry | null;
 }
 
 export interface setDetail {
@@ -315,4 +321,5 @@ export type CountryActionTypes =
   | resetCountry
   | setSearchKey
   | searchNameAndRegion
-  | setDetail;
+  | setDetail
+  | searchCode;
