@@ -29,7 +29,7 @@ const Details = () => {
 
   return (
     <div>
-      <div className="container mx-auto pt-10 dark:text-white/80">
+      <div className="container p-5 mx-auto pt-10 dark:text-white/80">
         <Link
           to="/"
           className="flex items-center gap-4 bg-white dark:bg-dark-blue  rounded-lg py-3 px-8  text-sm shadow w-fit">

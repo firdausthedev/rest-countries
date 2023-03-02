@@ -20,7 +20,7 @@ const Navbar = () => {
 
   return (
     <nav className="p-4 shadow bg-white dark:bg-dark-blue">
-      <div className="container mx-auto flex justify-between">
+      <div className="container px-5 mx-auto flex justify-between">
         <h1 className="font-bold text-xl dark:text-white">
           Where in the world?
         </h1>
