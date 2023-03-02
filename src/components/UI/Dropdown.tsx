@@ -31,6 +31,7 @@ const DropDown = () => {
         },
       });
     }
+    setIsShowDD(false);
   };
 
   return (
