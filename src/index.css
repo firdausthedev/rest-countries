@@ -4,6 +4,6 @@
 
 @layer components {
   body {
-    @apply font-sans bg-gray-100;
+    @apply font-sans bg-gray-100 dark:bg-very-dark-blue;
   }
 }
