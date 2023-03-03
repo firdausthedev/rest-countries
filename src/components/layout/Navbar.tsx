@@ -1,5 +1,5 @@
 import { FaMoon } from "react-icons/fa";
-import { useState, useContext } from "react";
+import { useContext } from "react";
 import CountryContext from "../context/CountryContext";
 import { CountryActionType } from "../context/CountryType";
 

@@ -2,14 +2,11 @@ import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
 import { useContext, useEffect } from "react";
 import CountryContext from "../context/CountryContext";
-import {
-  handleBorderNames,
-  listCommas,
-  popCommas,
-} from "../context/CountryActions";
+import { handleBorderNames } from "../context/CountryActions";
 import { searchByBorder } from "./../context/CountryActions";
 import { CountryActionType } from "../context/CountryType";
 import Spinner from "./../UI/Spinner";
+import { listCommas, popCommas } from "../utils/utils";
 
 const Details = () => {
   const { state, dispatch } = useContext(CountryContext);
@@ -47,7 +44,7 @@ const Details = () => {
   }, [dispatch, state.detail?.borders]);
 
   return (
-    <div>
+    <section>
       <div className="container p-3 md:p-5 mx-auto pt-10 dark:text-white/80">
         <Link
           to="/"
@@ -132,7 +129,7 @@ const Details = () => {
           </div>
         )}
       </div>
-    </div>
+    </section>
   );
 };
 

@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { listCommas, popCommas } from "../context/CountryActions";
+import { listCommas, popCommas } from "../utils/utils";
 import { CountryActionType, ICountry } from "./../context/CountryType";
 import { useContext } from "react";
 import CountryContext from "../context/CountryContext";
@@ -20,7 +20,7 @@ const CountryItem = ({ country }: { country: ICountry }) => {
       }}>
       <img src={country.flags.png} alt="flag" className="h-44" />
       <div className="p-7 pb-10">
-        <h3 className="font-bold text-xl mb-4">{country.name.official}</h3>
+        <h2 className="font-bold text-xl mb-4">{country.name.official}</h2>
         <p>
           <strong>Population:</strong> {popCommas(country.population)}
         </p>

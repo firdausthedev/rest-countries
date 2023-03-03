@@ -1,32 +1,5 @@
 import { ICountry } from "./CountryType";
 
-export const popCommas = (num: string | number | undefined): string => {
-  if (num) {
-    return String(num).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  }
-  return "0";
-};
-
-export const listCommas = (list: string[] | undefined): string => {
-  if (list) {
-    return list.map(item => item).join(", ");
-  }
-  return "";
-};
-
-export const loadTheme = (): string => {
-  const currentTheme = localStorage.getItem("theme")
-    ? localStorage.getItem("theme")
-    : null;
-  if (currentTheme === "dark") {
-    document.documentElement.classList.add("dark");
-    return "dark";
-  } else {
-    document.documentElement.classList.remove("dark");
-    return "light";
-  }
-};
-
 export const searchByName = async (
   name: string,
 ): Promise<ICountry[] | null> => {
@@ -95,4 +68,17 @@ export const handleBorderNames = async (borders: string[] | undefined) => {
     return list;
   }
   return undefined;
+};
+
+export const loadTheme = (): string => {
+  const currentTheme = localStorage.getItem("theme")
+    ? localStorage.getItem("theme")
+    : null;
+  if (currentTheme === "dark") {
+    document.documentElement.classList.add("dark");
+    return "dark";
+  } else {
+    document.documentElement.classList.remove("dark");
+    return "light";
+  }
 };
