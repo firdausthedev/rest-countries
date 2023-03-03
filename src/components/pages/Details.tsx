@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import { FaArrowLeft } from "react-icons/fa";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import CountryContext from "../context/CountryContext";
-import { listCommas, popCommas } from "../context/CountryActions";
-import { searchByCode } from "./../context/CountryActions";
+import {
+  handleBorderNames,
+  listCommas,
+  popCommas,
+} from "../context/CountryActions";
+import { searchByBorder } from "./../context/CountryActions";
 import { CountryActionType } from "../context/CountryType";
 import Spinner from "./../UI/Spinner";
 
@@ -21,16 +25,26 @@ const Details = () => {
     ? Object.values(state.detail?.languages)
     : [""];
 
-  const borders = state.detail?.borders;
-
   const handleBorder = async (border: string) => {
     dispatch({
       type: CountryActionType.SET_LOADING,
     });
 
-    const data = await searchByCode(border);
+    const data = await searchByBorder(border);
     dispatch({ type: CountryActionType.SEARCH_CODE, payload: data });
   };
+
+  useEffect(() => {
+    // fetch user data from API
+    const fetchData = async () => {
+      dispatch({
+        type: CountryActionType.SET_LOADING,
+      });
+      const data = await handleBorderNames(state.detail?.borders);
+      dispatch({ type: CountryActionType.SEARCH_BORDER_NAMES, payload: data });
+    };
+    fetchData();
+  }, [dispatch, state.detail?.borders]);
 
   return (
     <div>
@@ -95,20 +109,23 @@ const Details = () => {
               </div>
               <div className="flex mt-10 flex-col md:flex-row md:mt-20 md:items-center flex-wrap gap-4 md:gap-0">
                 <p className="mr-4">
-                  {state.detail?.borders && <strong>Border Countries: </strong>}
+                  {state.detail && state.detail.borders && (
+                    <strong>Border Countries: </strong>
+                  )}
                 </p>
                 <div className="flex gap-2 flex-wrap">
-                  {borders?.map(border => {
-                    return (
-                      <button
-                        onClick={() => handleBorder(border)}
-                        key={border}
-                        type="button"
-                        className="text-sm rounded-md shadow bg-white dark:bg-dark-blue px-5 py-1 hover:bg-very-dark-blue hover:text-white  hover:dark:bg-very-dark-blue transition-colors duration-200">
-                        {border}
-                      </button>
-                    );
-                  })}
+                  {state.borderNames &&
+                    state.borderNames.map(border => {
+                      return (
+                        <button
+                          onClick={() => handleBorder(border)}
+                          key={border}
+                          type="button"
+                          className="text-sm rounded-md shadow bg-white dark:bg-dark-blue px-5 py-1 hover:bg-very-dark-blue hover:text-white  hover:dark:bg-very-dark-blue transition-colors duration-200">
+                          {border}
+                        </button>
+                      );
+                    })}
                 </div>
               </div>
             </div>

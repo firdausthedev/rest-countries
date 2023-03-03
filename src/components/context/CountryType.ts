@@ -34,6 +34,7 @@ export interface CountryState {
   region: string;
   detail: ICountry | null;
   loading: boolean;
+  borderNames: string[] | undefined;
 }
 
 export const initialCountry: ICountry[] = [
@@ -255,6 +256,7 @@ export const initialState: CountryState = {
   region: "",
   detail: null,
   loading: false,
+  borderNames: undefined,
 };
 
 export enum CountryActionType {
@@ -268,10 +270,16 @@ export enum CountryActionType {
   SET_DETAIL,
   SEARCH_CODE,
   SET_LOADING,
+  SEARCH_BORDER_NAMES,
 }
 
 export interface setLoading {
   type: CountryActionType.SET_LOADING;
+}
+
+export interface searchBorderNames {
+  type: CountryActionType.SEARCH_BORDER_NAMES;
+  payload: string[] | undefined;
 }
 
 export interface searchCode {
@@ -331,4 +339,5 @@ export type CountryActionTypes =
   | searchNameAndRegion
   | setDetail
   | searchCode
-  | setLoading;
+  | setLoading
+  | searchBorderNames;

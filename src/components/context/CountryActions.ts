@@ -58,11 +58,41 @@ export const searchByNameAndRegion = async (
   return null;
 };
 
-export const searchByCode = async (code: string): Promise<ICountry | null> => {
-  const data = await fetch(`https://restcountries.com/v3.1/alpha/${code}`, {
+export const searchByBorder = async (
+  code: string,
+): Promise<ICountry | null> => {
+  const data = await fetch(`https://restcountries.com/v3.1/name/${code}`, {
     method: "GET",
   });
   const response = await data.json();
   if (response.status === 404) return null;
   return response[0];
+};
+
+export const fetchNameFromCode = async (
+  code: string,
+): Promise<string | null> => {
+  const data = `https://restcountries.com/v3.1/alpha/${code}`;
+  const response = await fetch(data);
+
+  if (response.status == 404) return null;
+
+  const country: ICountry[] = await response.json();
+  if (country[0].name.common) return country[0].name.common;
+  else return null;
+};
+
+export const handleBorderNames = async (borders: string[] | undefined) => {
+  if (borders) {
+    const list = [];
+
+    for (const border of borders) {
+      const countryName = await fetchNameFromCode(border);
+      if (countryName) {
+        list.push(countryName);
+      }
+    }
+    return list;
+  }
+  return undefined;
 };

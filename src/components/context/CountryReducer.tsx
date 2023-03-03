@@ -15,6 +15,12 @@ const countryReducer = (
         ...state,
         loading: true,
       };
+    case CountryActionType.SEARCH_BORDER_NAMES:
+      return {
+        ...state,
+        loading: false,
+        borderNames: action.payload,
+      };
     case CountryActionType.SET_DARK_THEME:
       return {
         ...state,
