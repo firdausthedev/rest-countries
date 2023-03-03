@@ -18,7 +18,7 @@ export const loadTheme = (): string => {
   const currentTheme = localStorage.getItem("theme")
     ? localStorage.getItem("theme")
     : null;
-  if (currentTheme) {
+  if (currentTheme === "dark") {
     document.documentElement.classList.add("dark");
     return "dark";
   } else {
