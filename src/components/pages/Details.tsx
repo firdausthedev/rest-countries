@@ -7,19 +7,24 @@ import { searchByBorder } from "./../context/CountryActions";
 import { CountryActionType } from "../context/CountryType";
 import Spinner from "./../UI/Spinner";
 import { listCommas, popCommas } from "../utils/utils";
+import ErrorBoundary from "./../utils/ErrorBoundary";
 
 const Details = () => {
   const { state, dispatch } = useContext(CountryContext);
 
+  if (state.detail === null) {
+    throw new Error("Country not found");
+  }
+
   const nativeName =
-    state.detail?.name.nativeName[Object.keys(state.detail?.name.nativeName)[0]]
+    state.detail.name.nativeName[Object.keys(state.detail.name.nativeName)[0]]
       .official;
 
   const currencies =
-    state.detail?.currencies[Object.keys(state.detail?.currencies)[0]].name;
+    state.detail.currencies[Object.keys(state.detail.currencies)[0]].name;
 
-  const languages: string[] = state.detail?.languages
-    ? Object.values(state.detail?.languages)
+  const languages: string[] = state.detail.languages
+    ? Object.values(state.detail.languages)
     : [""];
 
   const handleBorder = async (border: string) => {
@@ -34,14 +39,20 @@ const Details = () => {
   useEffect(() => {
     // fetch user data from API
     const fetchData = async () => {
+      if (state.detail === null) {
+        throw new Error("Country not found");
+      }
       dispatch({
         type: CountryActionType.SET_LOADING,
       });
-      const data = await handleBorderNames(state.detail?.borders);
-      dispatch({ type: CountryActionType.SEARCH_BORDER_NAMES, payload: data });
+      const data = await handleBorderNames(state.detail.borders);
+      dispatch({
+        type: CountryActionType.SEARCH_BORDER_NAMES,
+        payload: data,
+      });
     };
     fetchData();
-  }, [dispatch, state.detail?.borders]);
+  }, [dispatch, state.detail]);
 
   return (
     <section>
@@ -74,25 +85,25 @@ const Details = () => {
                   </p>
                   <p>
                     <strong>Population: </strong>
-                    {popCommas(state.detail?.population)}
+                    {popCommas(state.detail.population)}
                   </p>
                   <p>
                     <strong>Region: </strong>
-                    {state.detail?.region}
+                    {state.detail.region}
                   </p>
                   <p>
                     <strong>Sub Region: </strong>
-                    {state.detail?.subregion}
+                    {state.detail.subregion}
                   </p>
                   <p>
                     <strong>Capital: </strong>
-                    {state.detail?.capital}
+                    {state.detail.capital}
                   </p>
                 </div>
                 <div className="flex flex-col mt-5 md:mt-0 gap-1">
                   <p>
                     <strong>Top Level Domain: </strong>
-                    {listCommas(state.detail?.tld)}
+                    {listCommas(state.detail.tld)}
                   </p>
                   <p>
                     <strong>Currencies: </strong>
@@ -106,9 +117,7 @@ const Details = () => {
               </div>
               <div className="flex mt-10 flex-col md:flex-row md:mt-20 md:items-center flex-wrap gap-4 md:gap-0">
                 <p className="mr-4">
-                  {state.detail && state.detail.borders && (
-                    <strong>Border Countries: </strong>
-                  )}
+                  {state.detail.borders && <strong>Border Countries: </strong>}
                 </p>
                 <div className="flex gap-2 flex-wrap">
                   {state.borderNames &&
@@ -133,4 +142,10 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default function DetailsErrorBoundary() {
+  return (
+    <ErrorBoundary>
+      <Details />
+    </ErrorBoundary>
+  );
+}

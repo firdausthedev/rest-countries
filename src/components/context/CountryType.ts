@@ -29,7 +29,7 @@ export interface ICountry {
 
 export interface CountryState {
   theme: string;
-  country: ICountry[] | null;
+  country: ICountry[];
   searchKey: string;
   region: string;
   detail: ICountry | null;
@@ -284,7 +284,7 @@ export interface searchBorderNames {
 
 export interface searchCode {
   type: CountryActionType.SEARCH_CODE;
-  payload: ICountry | null;
+  payload: ICountry;
 }
 
 export interface setDetail {
@@ -303,7 +303,7 @@ export interface setLightTheme {
 export interface searchRegion {
   type: CountryActionType.SEARCH_REGION;
   payload: {
-    country: ICountry[] | null;
+    country: ICountry[];
     region: string;
   };
 }
@@ -311,7 +311,7 @@ export interface searchRegion {
 export interface searchNameAndRegion {
   type: CountryActionType.SEARCH_NAME_REGION;
   payload: {
-    country: ICountry[] | null;
+    country: ICountry[];
     region: string;
   };
 }
@@ -326,7 +326,7 @@ export interface setSearchKey {
 
 export interface searchName {
   type: CountryActionType.SEARCH_NAME;
-  payload: ICountry[] | null;
+  payload: ICountry[];
 }
 
 export type CountryActionTypes =

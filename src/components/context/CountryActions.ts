@@ -1,73 +1,70 @@
 import { ICountry } from "./CountryType";
 
-export const searchByName = async (
-  name: string,
-): Promise<ICountry[] | null> => {
-  const data = await fetch(`https://restcountries.com/v3.1/name/${name}`, {
-    method: "GET",
-  });
-  const response = await data.json();
-  if (response.status === 404) return null;
-  return response;
+export const searchByName = async (name: string): Promise<ICountry[]> => {
+  const response = await fetch(`https://restcountries.com/v3.1/name/${name}`);
+
+  if (!response.ok) {
+    return [];
+  }
+  const data: ICountry[] = await response.json();
+  return data;
 };
 
-export const searchByRegion = async (
-  region: string,
-): Promise<ICountry[] | null> => {
-  const data = await fetch(`https://restcountries.com/v3.1/region/${region}`, {
-    method: "GET",
-  });
-  const response = await data.json();
-  if (response.status === 404) return null;
-  return response;
+export const searchByRegion = async (region: string): Promise<ICountry[]> => {
+  const response = await fetch(
+    `https://restcountries.com/v3.1/region/${region}`,
+  );
+  if (!response.ok) {
+    return [];
+  }
+  const data: ICountry[] = await response.json();
+  return data;
 };
 
 export const searchByNameAndRegion = async (
   name: string,
   region: string,
-): Promise<ICountry[] | null> => {
+): Promise<ICountry[]> => {
   const data = await searchByName(name);
-  if (data) return data.filter(country => country.region === region);
-  return null;
+
+  return data.filter(country => country.region === region);
 };
 
-export const searchByBorder = async (
-  code: string,
-): Promise<ICountry | null> => {
-  const data = await fetch(`https://restcountries.com/v3.1/name/${code}`, {
-    method: "GET",
-  });
-  const response = await data.json();
-  if (response.status === 404) return null;
-  return response[0];
-};
+export const searchByBorder = async (code: string): Promise<ICountry> => {
+  const response = await fetch(`https://restcountries.com/v3.1/name/${code}`);
 
-export const fetchNameFromCode = async (
-  code: string,
-): Promise<string | null> => {
-  const data = `https://restcountries.com/v3.1/alpha/${code}`;
-  const response = await fetch(data);
-
-  if (response.status == 404) return null;
-
-  const country: ICountry[] = await response.json();
-  if (country[0].name.common) return country[0].name.common;
-  else return null;
-};
-
-export const handleBorderNames = async (borders: string[] | undefined) => {
-  if (borders) {
-    const list = [];
-
-    for (const border of borders) {
-      const countryName = await fetchNameFromCode(border);
-      if (countryName) {
-        list.push(countryName);
-      }
-    }
-    return list;
+  if (!response.ok) {
+    throw new Error("Server went wrong");
   }
-  return undefined;
+  const data: ICountry[] = await response.json();
+
+  return data[0];
+};
+
+export const fetchNameFromCode = async (code: string): Promise<string> => {
+  const response = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
+
+  if (!response.ok) {
+    throw new Error("Server went wrong");
+  }
+  const data: ICountry[] = await response.json();
+
+  if (data[0].name.common) return data[0].name.common;
+  else return "";
+};
+
+export const handleBorderNames = async (
+  borders: string[] | undefined,
+): Promise<string[]> => {
+  if (borders === undefined) {
+    return [];
+  }
+
+  const list: string[] = [];
+  for (const border of borders) {
+    await fetchNameFromCode(border).then(data => list.push(data));
+  }
+  return list;
 };
 
 export const loadTheme = (): string => {

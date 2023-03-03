@@ -24,16 +24,12 @@ const Home = () => {
         </div>
       ) : (
         <section className="container mx-auto p-3 md:p-5 grid gap-8 md:grid-cols-2 md:gap-10 xl:grid-cols-4 xl:gap-14 mt-10 md:mt-16 pb-20">
-          {state.country ? (
-            state.country.length > 1 ? (
-              state.country.map(country => {
-                return (
-                  <CountryItem country={country} key={country.name.official} />
-                );
-              })
-            ) : (
-              <NoItem />
-            )
+          {state.country.length > 1 ? (
+            state.country.map(country => {
+              return (
+                <CountryItem country={country} key={country.name.official} />
+              );
+            })
           ) : (
             <NoItem />
           )}
