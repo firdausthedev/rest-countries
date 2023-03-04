@@ -10,7 +10,7 @@ import { FaTimes } from "react-icons/fa";
 import { regions } from "../utils/utils";
 
 const DropDown = () => {
-  const [isShowDD, setIsShowDD] = useState(false);
+  const [showDropDown, setShowDropDown] = useState(false);
   const { state, dispatch } = useContext(CountryContext);
 
   const handleReset = () => {
@@ -20,14 +20,14 @@ const DropDown = () => {
     dispatch({
       type: CountryActionType.RESET_SEARCH,
     });
-    setIsShowDD(false);
+    setShowDropDown(false);
   };
 
   const handleRegion = async (region: string) => {
     dispatch({
       type: CountryActionType.SET_LOADING,
     });
-    setIsShowDD(false);
+    setShowDropDown(false);
     if (state.searchKey == "") {
       const data = await searchByRegion(region);
       dispatch({
@@ -52,7 +52,7 @@ const DropDown = () => {
   return (
     <div className="relative">
       <button
-        onClick={() => setIsShowDD(!isShowDD)}
+        onClick={() => setShowDropDown(!showDropDown)}
         id="dropdownDefaultButton"
         data-dropdown-toggle="dropdown"
         className="text-black rounded-lg bg-white dark:bg-dark-blue dark:text-white  p-4 text-sm text-start inline-flex items-center shadow"
@@ -75,7 +75,7 @@ const DropDown = () => {
       <div
         id="dropdown"
         className={`z-10 mt-3 ${
-          isShowDD ? "block" : "hidden"
+          showDropDown ? "block" : "hidden"
         } bg-white dark:bg-dark-blue  divide-y divide-gray-100 rounded-lg shadow w-44 absolute`}>
         <ul
           className="py-2 text-sm text-black dark:text-white"

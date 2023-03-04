@@ -34,7 +34,7 @@ export interface CountryState {
   region: string;
   detail: ICountry | null;
   loading: boolean;
-  borderNames: string[] | undefined;
+  borderNames: string[];
 }
 
 export const initialCountry: ICountry[] = [
@@ -256,7 +256,7 @@ export const initialState: CountryState = {
   region: "",
   detail: null,
   loading: false,
-  borderNames: undefined,
+  borderNames: [],
 };
 
 export enum CountryActionType {
@@ -273,71 +273,24 @@ export enum CountryActionType {
   SEARCH_BORDER_NAMES,
 }
 
-export interface setLoading {
-  type: CountryActionType.SET_LOADING;
-}
-
-export interface searchBorderNames {
-  type: CountryActionType.SEARCH_BORDER_NAMES;
-  payload: string[] | undefined;
-}
-
-export interface searchCode {
-  type: CountryActionType.SEARCH_CODE;
-  payload: ICountry;
-}
-
-export interface setDetail {
-  type: CountryActionType.SET_DETAIL;
-  payload: ICountry;
-}
-
-export interface setDarkTheme {
-  type: CountryActionType.SET_DARK_THEME;
-}
-
-export interface setLightTheme {
-  type: CountryActionType.SET_LIGHT_THEME;
-}
-
-export interface searchRegion {
-  type: CountryActionType.SEARCH_REGION;
-  payload: {
-    country: ICountry[];
-    region: string;
-  };
-}
-
-export interface searchNameAndRegion {
-  type: CountryActionType.SEARCH_NAME_REGION;
-  payload: {
-    country: ICountry[];
-    region: string;
-  };
-}
-
-export interface resetCountry {
-  type: CountryActionType.RESET_SEARCH;
-}
-export interface setSearchKey {
-  type: CountryActionType.SET_SEARCH_KEY;
-  payload: string;
-}
-
-export interface searchName {
-  type: CountryActionType.SEARCH_NAME;
-  payload: ICountry[];
-}
-
 export type CountryActionTypes =
-  | setDarkTheme
-  | setLightTheme
-  | searchRegion
-  | searchName
-  | resetCountry
-  | setSearchKey
-  | searchNameAndRegion
-  | setDetail
-  | searchCode
-  | setLoading
-  | searchBorderNames;
+  | { type: CountryActionType.SET_LOADING }
+  | {
+      type: CountryActionType.SEARCH_BORDER_NAMES;
+      payload: string[];
+    }
+  | { type: CountryActionType.SET_DARK_THEME }
+  | {
+      type: CountryActionType.SEARCH_REGION;
+      payload: { region: string; country: ICountry[] };
+    }
+  | { type: CountryActionType.SEARCH_NAME; payload: ICountry[] }
+  | { type: CountryActionType.SET_SEARCH_KEY; payload: string }
+  | {
+      type: CountryActionType.SEARCH_NAME_REGION;
+      payload: { region: string; country: ICountry[] };
+    }
+  | { type: CountryActionType.RESET_SEARCH }
+  | { type: CountryActionType.SET_LIGHT_THEME }
+  | { type: CountryActionType.SET_DETAIL; payload: ICountry }
+  | { type: CountryActionType.SEARCH_CODE; payload: ICountry };

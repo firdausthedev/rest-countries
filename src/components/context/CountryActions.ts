@@ -56,26 +56,18 @@ export const fetchNameFromCode = async (code: string): Promise<string> => {
 export const handleBorderNames = async (
   borders: string[] | undefined,
 ): Promise<string[]> => {
-  if (borders === undefined) {
+  if (!borders || !borders.length) {
     return [];
   }
 
-  const list: string[] = [];
-  for (const border of borders) {
-    await fetchNameFromCode(border).then(data => list.push(data));
-  }
-  return list;
+  const borderNames = await Promise.all(
+    borders.map(border => fetchNameFromCode(border)),
+  );
+  return borderNames;
 };
 
 export const loadTheme = (): string => {
-  const currentTheme = localStorage.getItem("theme")
-    ? localStorage.getItem("theme")
-    : null;
-  if (currentTheme === "dark") {
-    document.documentElement.classList.add("dark");
-    return "dark";
-  } else {
-    document.documentElement.classList.remove("dark");
-    return "light";
-  }
+  const currentTheme = localStorage.getItem("theme") || "light";
+  document.documentElement.classList.toggle("dark", currentTheme === "dark");
+  return currentTheme;
 };
