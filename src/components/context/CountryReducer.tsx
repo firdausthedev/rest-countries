@@ -74,7 +74,6 @@ const countryReducer = (
       return {
         ...state,
         detail: action.payload,
-        loading: false,
       };
     default:
       return state;

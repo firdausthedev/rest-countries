@@ -31,7 +31,7 @@ export const searchByNameAndRegion = async (
 };
 
 export const searchByBorder = async (code: string): Promise<ICountry> => {
-  const response = await fetch(`https://restcountries.com/v3.1/name/${code}`);
+  const response = await fetch(`https://restcountries.com/v3.1/alpha/${code}`);
 
   if (!response.ok) {
     throw new Error("Server went wrong");

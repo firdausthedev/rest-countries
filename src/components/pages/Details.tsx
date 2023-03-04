@@ -28,10 +28,6 @@ const Details = () => {
     : [""];
 
   const handleBorder = async (border: string) => {
-    dispatch({
-      type: CountryActionType.SET_LOADING,
-    });
-
     const data = await searchByBorder(border);
     dispatch({ type: CountryActionType.SEARCH_CODE, payload: data });
   };
@@ -70,13 +66,13 @@ const Details = () => {
         ) : (
           <div className="mt-16 grid md:grid-cols-2">
             <img
-              src={state.detail?.flags.png}
+              src={state.detail.flags.png}
               alt="flag"
               className="w-full h-full"
             />
             <div className="md:pl-10 py-10 md:py-20">
               <h2 className="text-3xl font-bold ">
-                {state.detail?.name.official}
+                {state.detail.name.official}
               </h2>
               <div className="grid md:grid-cols-2 mt-7">
                 <div className="flex flex-col gap-1">
@@ -121,10 +117,16 @@ const Details = () => {
                 </p>
                 <div className="flex gap-2 flex-wrap">
                   {state.borderNames &&
-                    state.borderNames.map(border => {
+                    state.borderNames.map((border, index) => {
                       return (
                         <button
-                          onClick={() => handleBorder(border)}
+                          onClick={() =>
+                            handleBorder(
+                              state.detail?.borders
+                                ? state.detail?.borders[index]
+                                : "",
+                            )
+                          }
                           key={border}
                           type="button"
                           className="text-sm rounded-md shadow bg-white dark:bg-dark-blue px-5 py-1 hover:bg-very-dark-blue hover:text-white  hover:dark:bg-very-dark-blue transition-colors duration-200">
